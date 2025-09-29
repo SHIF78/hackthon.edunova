@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Portal</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Login Page */
+    #loginPage {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #0a2a66;
+      color: white;
+      flex-direction: column;
+    }
+
+    #loginBox {
+      background: #fff;
+      color: #000;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0px 5px 15px rgba(0,0,0,0.3);
+    }
+
+    #loginBox input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    #loginBox button {
+      width: 100%;
+      padding: 10px;
+      background: #0a2a66;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #dashboard {
+      display: none;
+      height: 100vh;
+      display: flex;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: #0a2a66;
+      color: white;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      margin-bottom: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar ul li {
+      margin: 15px 0;
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 5px;
+    }
+
+    .sidebar ul li:hover {
+      background: #123b88;
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 20px;
+      background: #f5f5f5;
+      overflow-y: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 3px 8px rgba(0,0,0,0.1);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table, th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    th {
+      background: #0a2a66;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Login Page -->
+  <div id="loginPage">
+    <div id="loginBox">
+      <h2>Login</h2>
+      <input type="text" id="username" placeholder="Username"><br>
+      <input type="password" id="password" placeholder="Password"><br>
+      <button onclick="login()">Login</button>
+      <p id="errorMsg" style="color:red; display:none;">Invalid Credentials!</p>
+    </div>
+  </div>
+
+  <!-- Dashboard Page -->
+  <div id="dashboard">
+    <div class="sidebar">
+      <h2>Dashboard</h2>
+      <ul>
+        <li onclick="showSection('user')">User Name</li>
+        <li onclick="showSection('materials')">Study Materials</li>
+        <li onclick="showSection('assignments')">Assignments</li>
+        <li onclick="showSection('projects')">Projects</li>
+        <li onclick="showSection('result')">Result</li>
+        <li onclick="showSection('attendance')">Attendance</li>
+        <li onclick="showSection('helpline')">Help Line</li>
+        <li onclick="logout()">Logout</li>
+      </ul>
+    </div>
+
+    <div class="main">
+      <div id="user" class="card">
+        <h3>User Information</h3>
+        <p><b>User Name:</b> <span id="displayName"></span></p>
+        <p><b>User ID:</b> <span id="displayID"></span></p>
+      </div>
+
+      <div id="materials" class="card" style="display:none;">
+        <h3>Study Materials - Computer</h3>
+        <ul>
+          <li>Introduction to Computer Systems (PDF)</li>
+          <li>Operating Systems Basics (PDF)</li>
+          <li>Computer Networks Notes</li>
+          <li>Data Structures in C</li>
+          <li>Database Management Systems</li>
+        </ul>
+      </div>
+
+      <div id="assignments" class="card" style="display:none;"> 
+        <h3>Assignments - Computer</h3>
+        <ul>
+          <li>Write a program for stack implementation in C.</li>
+          <li>Prepare a report on Operating System Scheduling Algorithms.</li>
+          <li>Design ER Diagram for a Library Database.</li>
+        </ul>
+      </div>
+
+      <div id="projects" class="card" style="display:none;">
+        <h3>Projects - Computer</h3>
+        <ul>
+          <li>Notes Sharing Platform (Noteflow) - In Progress</li>
+          <li>AI Study Assistant using React & Node.js - Upcoming</li>
+          <li>Online Food Ordering Platform (MERN Stack) - Completed</li>
+        </ul>
+      </div>
+
+      <div id="result" class="card" style="display:none;">
+        <h3>Result - Diploma in Computer Science</h3>
+        <table>
+          <tr><th>Semester</th><th>Subjects</th><th>GPA</th></tr>
+          <tr><td>1</td><td>Programming in C, Maths, Physics</td><td>8.5</td></tr>
+          <tr><td>2</td><td>Data Structures, DBMS, OS</td><td>8.8</td></tr>
+          <tr><td>3</td><td>Java, Computer Networks, Software Engg</td><td>9.0</td></tr>
+        </table>
+      </div>
+
+      <div id="attendance" class="card" style="display:none;">
+        <h3>Attendance (Jan - Dec)</h3>
+        <table>
+          <tr><th>Month</th><th>Attendance %</th></tr>
+          <tr><td>Jan</td><td>82%</td></tr>
+          <tr><td>Feb</td><td>79%</td></tr>
+          <tr><td>Mar</td><td>80%</td></tr>
+          <tr><td>Apr</td><td>81%</td></tr>
+          <tr><td>May</td><td>78%</td></tr>
+          <tr><td>Jun</td><td>83%</td></tr>
+          <tr><td>Jul</td><td>80%</td></tr>
+          <tr><td>Aug</td><td>82%</td></tr>
+          <tr><td>Sep</td><td>79%</td></tr>
+          <tr><td>Oct</td><td>80%</td></tr>
+          <tr><td>Nov</td><td>81%</td></tr>
+          <tr><td>Dec</td><td>80%</td></tr>
+        </table>
+        <p><b>Overall Attendance:</b> 80%</p>
+      </div>
+
+      <div id="helpline" class="card" style="display:none;">
+        <h3>Help Line</h3>
+        <p>For any queries, contact:</p>
+        <p><b>Phone:</b> 12345-54321</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Students Database
+    const students = {
+      "Rahul": { password: "123", id: "2025CSE001" },
+      "Athira": { password: "321", id: "2025CSE002" },
+      "Meaminth": { password: "456", id: "2025CSE003" },
+      "Aarabhi": { password: "258", id: "2025CSE004" }
+    };
+
+    function login() {
+      const user = document.getElementById("username").value;
+      const pass = document.getElementById("password").value;
+      const errorMsg = document.getElementById("errorMsg");
+
+      if (students[user] && students[user].password === pass) {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("dashboard").style.display = "flex";
+        document.getElementById("displayName").innerText = user;
+        document.getElementById("displayID").innerText = students[user].id;
+      } else {
+        errorMsg.style.display = "block";
+      }
+    }
+
+    function logout() {
+      document.getElementById("dashboard").style.display = "none";
+      document.getElementById("loginPage").style.display = "flex";
+    }
+
+    function showSection(id) {
+      const sections = ["user", "materials", "assignments", "projects", "result", "attendance", "helpline"];
+      sections.forEach(sec => {
+        document.getElementById(sec).style.display = "none";
+      });
+      document.getElementById(id).style.display = "block";
+    }
+  </script>
+</body>
+</html>
